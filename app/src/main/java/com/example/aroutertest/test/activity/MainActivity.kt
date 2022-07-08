@@ -7,7 +7,6 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import com.alibaba.android.arouter.facade.Postcard
-import com.alibaba.android.arouter.facade.annotation.Route
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.aroutertest.R
@@ -25,12 +24,13 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        mainText = findViewById<TextView>(R.id.mainText)
-        val main = findViewById<Button>(R.id.main)
-        main.setOnClickListener {
+        mainText = findViewById(R.id.mainText)
+        val normal = findViewById<Button>(R.id.normal)
+        val parms = findViewById<Button>(R.id.parms)
+        val uriJump = findViewById<Button>(R.id.uriJump)
+        normal.setOnClickListener {
             ARouter.getInstance().build("/test/activity")
-                .withString(TO_TEST, "这是一条来自于MainActivity的消息")
-                .navigation(this, 200, object : NavCallback() {
+                .navigation(this, object : NavCallback() {
 
                     override fun onFound(postcard: Postcard?) {
                         super.onFound(postcard)
@@ -53,12 +53,20 @@ class MainActivity : AppCompatActivity() {
 
                 })
         }
+        parms.setOnClickListener {
+            ARouter.getInstance().build("/test/activity")
+                .withString(TO_TEST, "这是一条来自于MainActivity的消息")
+                .navigation(this, 100)
+        }
+        uriJump.setOnClickListener {
+            ARouter.getInstance().build("/webView/activity").navigation()
+        }
     }
 
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == 200) {
+        if (requestCode == 100) {
             if (resultCode == RESULT_OK) {
                 data?.let {
                     mainText.text = it.getStringExtra(TestActivity.BACK_MAIN)
