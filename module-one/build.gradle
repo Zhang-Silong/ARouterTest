@@ -1,5 +1,5 @@
 plugins {
-    id 'com.android.application'
+    id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
 }
@@ -8,7 +8,7 @@ android {
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.example.aroutertest"
+
         minSdk 29
         targetSdk 32
         versionCode 1
@@ -16,7 +16,6 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
 
     buildTypes {
         release {
@@ -31,12 +30,13 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-}
 
-kapt {
-    arguments {
-        arg("AROUTER_MODULE_NAME", project.getName())
+    kapt {
+        arguments {
+            arg("AROUTER_MODULE_NAME", project.getName())
+        }
     }
+
 }
 
 dependencies {
@@ -52,6 +52,4 @@ dependencies {
     implementation 'com.alibaba:arouter-api:1.5.2'
     kapt 'com.alibaba:arouter-compiler:1.5.2'
 
-    implementation project(':module-one')
-    implementation project(':module-two')
 }

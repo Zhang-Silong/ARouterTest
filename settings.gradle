@@ -14,3 +14,6 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ARouterTest"
 include ':app'
+include ':module-one'
+include ':app:test'
+include ':module-two'

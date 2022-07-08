@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.facade.Postcard
 import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.aroutertest.R
+import com.example.aroutertest.test.Module
 
 
 class MainActivity : AppCompatActivity() {
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         val normal = findViewById<Button>(R.id.normal)
         val parms = findViewById<Button>(R.id.parms)
         val uriJump = findViewById<Button>(R.id.uriJump)
+        val module = findViewById<Button>(R.id.module)
         normal.setOnClickListener {
             ARouter.getInstance().build("/test/activity")
                 .navigation(this, object : NavCallback() {
@@ -60,6 +62,9 @@ class MainActivity : AppCompatActivity() {
         }
         uriJump.setOnClickListener {
             ARouter.getInstance().build("/webView/activity").navigation()
+        }
+        module.setOnClickListener {
+            ARouter.getInstance().build(Module.module1).navigation()
         }
     }
 
