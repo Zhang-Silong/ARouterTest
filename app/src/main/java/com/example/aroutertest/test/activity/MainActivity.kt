@@ -33,6 +33,7 @@ class MainActivity : AppCompatActivity() {
         val uriJump = findViewById<Button>(R.id.uriJump)
         val module = findViewById<Button>(R.id.module)
         val helloService = findViewById<Button>(R.id.helloService)
+        val myInterceptor = findViewById<Button>(R.id.myInterceptor)
         normal.setOnClickListener {
             ARouter.getInstance().build("/test/activity")
                 .navigation(this, object : NavCallback() {
@@ -76,6 +77,32 @@ class MainActivity : AppCompatActivity() {
             val serviceManage = ServiceManage()
             serviceManage.getMsg()
             true
+        }
+        myInterceptor.setOnClickListener {
+            ARouter.getInstance().build("/test/activity")
+                .withBoolean("flag", false)
+                .navigation(this, object : NavCallback() {
+                    override fun onFound(postcard: Postcard?) {
+                        super.onFound(postcard)
+                        Log.d("myInterceptor", "onFound:找到了路由")
+                    }
+
+                    override fun onLost(postcard: Postcard?) {
+                        super.onLost(postcard)
+                        Log.d("myInterceptor", "onLost:找不到路由")
+                    }
+
+                    override fun onArrival(postcard: Postcard?) {
+                        Log.d("myInterceptor", "onArrival:路由跳转完成")
+                    }
+
+                    override fun onInterrupt(postcard: Postcard) {
+                        super.onInterrupt(postcard)
+                        ARouter.getInstance().build("/login/activity").navigation()
+                        Log.d("myInterceptor", "onInterrupt:路由被拦截")
+                    }
+
+                })
         }
     }
 
