@@ -120,5 +120,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline5" />
 
+    <Button
+        android:id="@+id/helloService"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="暴露服务"
+        app:layout_constraintBottom_toTopOf="@+id/guideline7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline6" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

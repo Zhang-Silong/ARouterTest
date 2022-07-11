@@ -11,6 +11,8 @@ import com.alibaba.android.arouter.facade.callback.NavCallback
 import com.alibaba.android.arouter.launcher.ARouter
 import com.example.aroutertest.R
 import com.example.aroutertest.test.Module
+import com.example.aroutertest.test.service.HelloService
+import com.example.aroutertest.test.service.ServiceManage
 
 
 class MainActivity : AppCompatActivity() {
@@ -30,6 +32,7 @@ class MainActivity : AppCompatActivity() {
         val parms = findViewById<Button>(R.id.parms)
         val uriJump = findViewById<Button>(R.id.uriJump)
         val module = findViewById<Button>(R.id.module)
+        val helloService = findViewById<Button>(R.id.helloService)
         normal.setOnClickListener {
             ARouter.getInstance().build("/test/activity")
                 .navigation(this, object : NavCallback() {
@@ -65,6 +68,14 @@ class MainActivity : AppCompatActivity() {
         }
         module.setOnClickListener {
             ARouter.getInstance().build(Module.module1).navigation()
+        }
+        helloService.setOnClickListener {
+            ARouter.getInstance().navigation(HelloService::class.java).showMsg()
+        }
+        helloService.setOnLongClickListener {
+            val serviceManage = ServiceManage()
+            serviceManage.getMsg()
+            true
         }
     }
 
